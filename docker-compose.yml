@@ -1,0 +1,21 @@
+version: '3.4'
+
+services:
+  client:
+    image: onetaplogin
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    environment:
+      NODE_ENV: production
+    ports:
+      - "3000:3000"
+  server:
+    image: onetaploginserver
+    build:
+      context: .
+      dockerfile: ./Dockerfile.server
+    environment:
+      NODE_ENV: production
+    ports:
+      - "5000:5000"

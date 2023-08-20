@@ -17,3 +17,5 @@ Open [http://localhost:5000](http://localhost:5000)
 
 After clicking the signin button the system will contact Google Server to obtain the user token.
 If success? it will tell the server:5000 to initiate the call to Google to obtain the user info.
+To support running with Docker.
+    Axios/Fetch must be explicit.  Can not use Node proxy in the package.json file cause Docker proxy mismatch.

@@ -10,28 +10,30 @@ app.use(express.json());
 app.use(
     cors({
        origin: 'http://localhost:3000',
-       methods: "GET,POSTPUT,DELETE,UPDATE",
+       methods: "GET,POST,PUT,DELETE,UPDATE",
        credentials: false,
        "preflightContinue": false,
    }));
-const users = [];
+//const users = [];
 
-const upsert = (array, item) =>{
-    const i = array.findIndex((_item) => _item.email === item.email);
-    if (i > -1) array[i] = item;
-    else array.push(item)
-}
+// const upsert = (array, item) =>{
+//     const i = array.findIndex((_item) => _item.email === item.email);
+//     if (i > -1) array[i] = item;
+//     else array.push(item)
+// }
 
-app.post('/api/google-login', async (req,res) => {
+app.post("/api/google-login", async (req,res) => {
     const { token } = req.body;
+    
     const ticket = await client.verifyIdToken({
         idToken: token,
         audience: clientId,
     });
 
-    const {name, email, picture } = ticket.getPayload();
-    upsert(users, {name, email, picture});
-    res.status(201).json({name, email, picture});
+    const data = ticket.getPayload();
+    console.log(ticket.getPayload());
+    //upsert(users, {name, email, picture});
+    res.status(201).json(data);
 });
 
 app.listen(5000, () => {
